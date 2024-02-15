@@ -587,7 +587,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   min: {x: 0, y: 0, z: 0}
   max: {x: 0, y: 0, z: 0}
-  radius: 0
+  radius: 0.42
 --- !u!1001 &5500990474573366103
 PrefabInstance:
   m_ObjectHideFlags: 0

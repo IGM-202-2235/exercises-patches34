@@ -27,4 +27,21 @@ public class SpriteInfo : MonoBehaviour
         min = spriteRenderer.bounds.min;
         max = spriteRenderer.bounds.max;
     }
+
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+
+        Gizmos.DrawWireSphere(transform.position, radius);
+
+
+        Gizmos.color = Color.cyan;
+
+        if (spriteRenderer != null)
+        {
+            Gizmos.DrawWireCube(transform.position, spriteRenderer.bounds.size);
+        }
+    }
 }
