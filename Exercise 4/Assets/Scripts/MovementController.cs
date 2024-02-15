@@ -6,7 +6,7 @@ public class MovementController : MonoBehaviour
 {
     Vector3 objectPosition = Vector3.zero;
 
-    Vector3 direction = Vector3.up;
+    Vector3 direction = Vector3.zero;
 
     Vector3 velocity = Vector3.zero;
 
