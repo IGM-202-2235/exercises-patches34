@@ -22,8 +22,7 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField]
     List<Sprite> animalSprites;
 
-    [SerializeField]
-    int minSpawnCount, maxSpawnCount;
+    public int minSpawnCount, maxSpawnCount;
 
     public int SpawnCount
     {
