@@ -8,7 +8,7 @@ public enum AnimalTypes
     Turtle,
     Snail,
     Octopus,
-    Kangaroo
+    Kanagroo
 }
 
 public class SpawnManager : Singleton<SpawnManager>
@@ -16,11 +16,29 @@ public class SpawnManager : Singleton<SpawnManager>
     // (Optional) Prevent non-singleton constructor use.
     protected SpawnManager() { }
 
-    public SpriteRenderer animalPrefab;
+    [SerializeField]
+    SpriteRenderer animalPrefab;
 
-    public List<Sprite> animalSprites;
+    [SerializeField]
+    List<Sprite> animalSprites;
 
-    public int animalCount = 20;
+    [SerializeField]
+    int minSpawnCount, maxSpawnCount;
+
+    public int SpawnCount
+    {
+        get
+        {
+            return spawnedAnimals.Count;
+        }
+    }
+
+    int spawnedTotal = 0;
+
+    public int SpawnedTotal
+    {
+        get { return spawnedTotal; }
+    }
 
     List<SpriteRenderer> spawnedAnimals = new List<SpriteRenderer>();
 
@@ -33,54 +51,55 @@ public class SpawnManager : Singleton<SpawnManager>
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-
-
 
 
     public void Spawn()
     {
         CleanUp();
-        
-        for(int i = 0; i < animalCount; i++)
+
+        int spawnCount = Random.Range(minSpawnCount, maxSpawnCount);
+
+        for (int i = 0; i < spawnCount; i++)
         {
-            SpawnAnimal(PickRandomAnimal());
+            SpawnAnimal();
         }
     }
 
-    public void SpawnAnimal(AnimalTypes type)
+    public void SpawnAnimal()
     {
         SpriteRenderer newAnimal = Instantiate(animalPrefab);
 
-        newAnimal.sprite = animalSprites[(int)type];
+        //  Change sprite
+        newAnimal.sprite = animalSprites[(int)PickRandomAnimal()];
 
-        //  Color it
+        //  Change color
         newAnimal.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
 
-        //  Set its location
-        float heightStd = (Camera.main.orthographicSize * 2f) / 8f;
-        float widthStd = heightStd * Camera.main.aspect;
+        //  Set position
+        float screenH = Camera.main.orthographicSize * 2f;
+        float screenW = screenH * Camera.main.aspect;
 
-        float x = Gaussian(0, widthStd);
-        float y = Gaussian(0, heightStd);
-        
-        newAnimal.transform.position = new Vector3(x, y);
+        float x = Gaussian(0, screenW / 8f);
+        float y = Gaussian(0, screenH / 8f);
+
+        newAnimal.transform.position = new Vector3(x, y, 0);
 
         spawnedAnimals.Add(newAnimal);
+
+        ++spawnedTotal;
     }
 
-    public void CleanUp()
+    void CleanUp()
     {
-        foreach(SpriteRenderer animal in spawnedAnimals)
+        foreach (SpriteRenderer animal in spawnedAnimals)
         {
             Destroy(animal.gameObject);
         }
 
         spawnedAnimals.Clear();
     }
-
-
 
 
     float Gaussian(float mean, float stdDev)
@@ -99,11 +118,11 @@ public class SpawnManager : Singleton<SpawnManager>
     {
         float randValue = Random.Range(0f, 1f);
 
-        if(randValue < .6f)
+        if (randValue < .6f)
         {
             return AnimalTypes.Elephant;
         }
-        else if(randValue < .84f)
+        else if (randValue < .84f)
         {
             return AnimalTypes.Snail;
         }
