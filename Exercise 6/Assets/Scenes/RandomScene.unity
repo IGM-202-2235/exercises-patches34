@@ -328,8 +328,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 19d2c0f2b8eec474ebb9718bffe64392, type: 3}
   - {fileID: 21300000, guid: d6953c8db2bdd8f4599631b16e96a8cc, type: 3}
   - {fileID: 21300000, guid: beddd5e6b092926418369bd3f9cf035e, type: 3}
-  animalCount: 200
-  spawnedAnimals: []
+  minSpawnCount: 20
+  maxSpawnCount: 80
 --- !u!4 &1202522747
 Transform:
   m_ObjectHideFlags: 0

@@ -16,13 +16,31 @@ public class SpawnManager : Singleton<SpawnManager>
     // (Optional) Prevent non-singleton constructor use.
     protected SpawnManager() { }
 
-    public SpriteRenderer animalPrefab;
+    [SerializeField]
+    SpriteRenderer animalPrefab;
 
-    public List<Sprite> animalSprites;
+    [SerializeField]
+    List<Sprite> animalSprites;
 
-    public int animalCount = 100;
+    [SerializeField]
+    int minSpawnCount, maxSpawnCount;
 
-    public List<SpriteRenderer> spawnedAnimals;
+    public int SpawnCount
+    {
+        get
+        {
+            return spawnedAnimals.Count;
+        }
+    }
+
+    int spawnedTotal = 0;
+
+    public int SpawnedTotal
+    {
+        get { return spawnedTotal; }
+    }
+
+    List<SpriteRenderer> spawnedAnimals = new List<SpriteRenderer>();
 
     // Start is called before the first frame update
     void Start()
@@ -40,8 +58,10 @@ public class SpawnManager : Singleton<SpawnManager>
     public void Spawn()
     {
         CleanUp();
+
+        int spawnCount = Random.Range(minSpawnCount, maxSpawnCount);
         
-        for(int i = 0; i < animalCount; i++)
+        for(int i = 0; i < spawnCount; i++)
         {
             SpawnAnimal();
         }
@@ -67,6 +87,8 @@ public class SpawnManager : Singleton<SpawnManager>
         newAnimal.transform.position = new Vector3(x, y, 0);
 
         spawnedAnimals.Add(newAnimal);
+
+        ++spawnedTotal;
     }
 
     void CleanUp()
