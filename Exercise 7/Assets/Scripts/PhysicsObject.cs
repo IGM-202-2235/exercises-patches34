@@ -17,6 +17,11 @@ public class PhysicsObject : MonoBehaviour
     [SerializeField]
     float mass, maxSpeed;
 
+    public float MaxSpeed
+    {
+        get { return maxSpeed; }
+    }
+
 
     //  things that might go away
     public bool useFriction, useGravity;
@@ -49,6 +54,8 @@ public class PhysicsObject : MonoBehaviour
 
         // Calculate the velocity for this frame - New
         velocity += acceleration * Time.deltaTime;
+
+        velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
 
         CheckForScreenEdgeBounce();
 
