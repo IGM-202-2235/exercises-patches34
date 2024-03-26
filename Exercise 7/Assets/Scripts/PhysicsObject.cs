@@ -6,8 +6,14 @@ public class PhysicsObject : MonoBehaviour
 {
     Vector3 position, direction, velocity, acceleration;
 
+    public Vector3 Direction { get { return direction; } }
+
+    public Vector3 Velocity { get { return velocity; } }
+
     [SerializeField]
     float mass = 1f, maxSpeed;
+
+    public float MaxSpeed { get { return maxSpeed; } }
 
     //  Things that might go away
     public bool useFriction, useGravity;
@@ -38,6 +44,16 @@ public class PhysicsObject : MonoBehaviour
 
         // Calculate the velocity for this frame - New
         velocity += acceleration * Time.deltaTime;
+
+
+
+
+
+        velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+
+
+
+
 
         position += velocity * Time.deltaTime;
 
